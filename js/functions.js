@@ -57,12 +57,12 @@ function calculateAndDisplayRoute(waypoints) {
             costDistance = totalDistance * costPerMile;
             costDriver = Math.ceil(totalTime/60) * costPerHour;
             totalCost = costDistance + costDriver;
-            summaryPanel.innerHTML += '<b>Total Time: </b>' + totalTime + ' mins<br>';
+            /*summaryPanel.innerHTML += '<b>Total Time: </b>' + totalTime + ' mins<br>';
             summaryPanel.innerHTML += '<b>Total Distance: </b>' + totalDistance + ' mi<br>';
             summaryPanel.innerHTML += '<b>Cost per Distance: </b>' + costDistance + ' USD<br>';
             summaryPanel.innerHTML += '<b>Cost Driver: </b>' + costDriver + ' USD<br>';
-            summaryPanel.innerHTML += '<b>Total Cost: </b>' + totalCost + ' USD<br>';
-            summaryPanel.innerHTML += '<b>Cost per Stop: </b>' + (totalCost/route.legs.length) + ' USD<br><br><br>';
+            summaryPanel.innerHTML += '<b>Total Cost: </b>' + totalCost + ' USD<br>';*/
+            summaryPanel.innerHTML += '<b>Cost per Delivery: </b>' + (totalCost/route.legs.length).toFixed(2) + ' USD<br><br>';
             summaryPanel.innerHTML += panelString;
 
         } else {
