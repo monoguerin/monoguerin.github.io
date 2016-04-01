@@ -1,0 +1,47 @@
+#right-panel {
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+#right-panel select, #right-panel input {
+    font-size: 15px;
+}
+
+#right-panel select {
+    width: 100%;
+}
+
+#right-panel i {
+    font-size: 12px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow: hidden;
+}
+#map {
+    height: 100%;
+    float: left;
+    width: 70%;
+}
+#right-panel {
+    margin: 10px;
+    border-width: 2px;
+    width: 28%;
+    float: left;
+    text-align: left;
+}
+#directions-panel {
+    max-height: 80vh;
+    overflow-y: scroll;
+    margin-top: 20px;
+    background-color: #FFEE77;
+    padding: 10px;
+}
+input[type=text]{
+    text-align: center;
+}
