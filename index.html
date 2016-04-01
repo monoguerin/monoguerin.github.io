@@ -24,6 +24,18 @@
 <div id="map"></div>
 <div id="right-panel">
     <div>
+        <p><b>Deliveries:</b></p>
+        <select id="deliveries" class="form-control">
+            <option value="">Please select the number of directions</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+        </select>
+        <br>
         <p><b>Stop Time:</b></p>
         <div class="input-group">
             <input type="text" class="form-control" aria-describedby="min-addon" name="stopValue" id="stop-value" value="5">
@@ -45,10 +57,9 @@
 
 <script src="js/functions.js"></script>
 <!--<script async defer
-        src="https://maps.googleapis.com/maps/api/js?client=gme-sears&callback=initMap">-->
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUxwKHtIjaAZx-alWS2n6CvSq_yYAqgbE&callback=initMap">-->
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUxwKHtIjaAZx-alWS2n6CvSq_yYAqgbE&callback=initMap">
-
+        src="https://maps.googleapis.com/maps/api/js?client=gme-sears&callback=initMap">
 </script>
 </body>
 </html>

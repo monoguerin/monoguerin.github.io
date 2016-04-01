@@ -12,9 +12,9 @@ function initMap() {
 
 function calculateAndDisplayRoute(waypoints) {
 
-    var startPoint = "Dadeland Mall, Miami";
-    var waypts = waypoints || [];
-    var endpoint = waypoints.pop().location;
+    var startPoint = "Dadeland Mall, Miami",
+        waypts = waypoints || [],
+        endpoint = waypoints.pop().location;
 
     directionsService.route({
         origin: startPoint,
@@ -26,13 +26,19 @@ function calculateAndDisplayRoute(waypoints) {
         if (status === google.maps.DirectionsStatus.OK) {
             console.log(response);
             directionsDisplay.setDirections(response);
-            var route = response.routes[0];
-            var summaryPanel = document.getElementById('directions-panel');
+            var route = response.routes[0],
+                summaryPanel = document.getElementById('directions-panel'),
+                stopTime = document.getElementById("stop-value").value * 60,
+                totalTime = 0,
+                totalDistance = 0,
+                costPerMile = 0.34,
+                costPerHour = 15,
+                costDistance = 0,
+                costDriver = 0,
+                totalCost = 0;
+
             summaryPanel.innerHTML = '';
-            console.log(route.legs.length);
-            var stopTime = document.getElementById("stop-value").value * 60;
-            var totalTime = 0;
-            var totalDistance = 0;
+
             // For each route, display summary information.
             for (var i = 0; i < route.legs.length; i++) {
                 var routeSegment = i + 1;
@@ -45,8 +51,17 @@ function calculateAndDisplayRoute(waypoints) {
                 totalTime += route.legs[i].duration.value + stopTime;
                 totalDistance += route.legs[i].distance.value;
             }
-            summaryPanel.innerHTML += '<b>Total Time: </b>' + Math.round(totalTime/60) + ' mins<br>';
-            summaryPanel.innerHTML += '<b>Total Distance: </b>' + Math.round(totalDistance*0.000621371) + ' mi<br><br><br>';
+            totalTime = Math.ceil(totalTime/60);
+            totalDistance = Math.ceil(totalDistance*0.000621371);
+            costDistance = totalDistance * costPerMile;
+            costDriver = Math.ceil(totalTime/60) * costPerHour;
+            totalCost = costDistance + costDriver;
+            summaryPanel.innerHTML += '<b>Total Time: </b>' + totalTime + ' mins<br>';
+            summaryPanel.innerHTML += '<b>Total Distance: </b>' + totalDistance + ' mi<br>';
+            summaryPanel.innerHTML += '<b>Cost per Distance: </b>' + costDistance + ' USD<br>';
+            summaryPanel.innerHTML += '<b>Cost Driver: </b>' + costDriver + ' USD<br>';
+            summaryPanel.innerHTML += '<b>Total Cost: </b>' + totalCost + ' USD<br>';
+            summaryPanel.innerHTML += '<b>Cost per Stop: </b>' + Math.ceil(totalCost/route.legs.length) + ' USD<br><br><br>';
 
         } else {
             window.alert('Directions request failed due to ' + status);
@@ -54,43 +69,55 @@ function calculateAndDisplayRoute(waypoints) {
     });
 }
 
-var tracedRoutes = [];
+var tracedRoutes = [], fileToRead;
 
 $(document).ready(function () {
-    $.get("csv/map.csv", function(response) {
-        var logfile = response;
-        console.log(logfile);
-        var mapDirections = $.csv.toObjects(logfile);
-        console.log(mapDirections);
 
-        $.each(mapDirections, function( index, valObject ) {
-            console.log("index", index);
-            console.log("value", valObject);
+    $("#deliveries").change(function () {
+        var deliveries = $("#deliveries").val();
 
-            var newIndex = valObject.RouteNo-1;
-            tracedRoutes[newIndex] = tracedRoutes[newIndex] || {};
-            tracedRoutes[newIndex][valObject.RouteStopNo] = tracedRoutes[newIndex][valObject.RouteStopNo] || {};
-            tracedRoutes[newIndex][valObject.RouteStopNo].location = valObject.Delivery_Latitude + "," + valObject.Delivery_Longitude;
-            tracedRoutes[newIndex][valObject.RouteStopNo].stopover = true;
-        });
+        if(!deliveries) return;
 
-        console.log(tracedRoutes);
-        $.each(tracedRoutes, function(index, value) {
-            $("#routes").append("<option value=" + index + ">Route #" + (index+1) +"</option>");
-        });
+        $("#routes").html('<option value="">Please select a Route</option>');
+        $("#directions-panel").html('');
+        directionsDisplay.setDirections({routes: []});
 
-        $("#routes, #stop-value").change(function () {
-            var routeSelected = $("#routes").val();
+        fileToRead = "map-" + deliveries + ".csv";
 
-            if(!routeSelected) return;
+        $.get("csv/"+fileToRead, function(response) {
+            var logfile = response;
+            console.log(logfile);
+            var mapDirections = $.csv.toObjects(logfile);
+            console.log(mapDirections);
 
-            var array = $.map(tracedRoutes[routeSelected], function(value, index) {
-                return [value];
+            $.each(mapDirections, function( index, valObject ) {
+                console.log("index", index);
+                console.log("value", valObject);
+
+                var newIndex = valObject.RouteNo-1;
+                tracedRoutes[newIndex] = tracedRoutes[newIndex] || {};
+                tracedRoutes[newIndex][valObject.RouteStopNo] = tracedRoutes[newIndex][valObject.RouteStopNo] || {};
+                tracedRoutes[newIndex][valObject.RouteStopNo].location = valObject.Delivery_Latitude + "," + valObject.Delivery_Longitude;
+                tracedRoutes[newIndex][valObject.RouteStopNo].stopover = true;
             });
 
-            calculateAndDisplayRoute(array);
+            console.log(tracedRoutes);
 
+            $.each(tracedRoutes, function(index, value) {
+                $("#routes").append("<option value=" + index + ">Route #" + (index+1) +"</option>");
+            });
 
+            $("#routes, #stop-value").change(function () {
+                var routeSelected = $("#routes").val();
+
+                if(!routeSelected) return;
+
+                var array = $.map(tracedRoutes[routeSelected], function(value, index) {
+                    return [value];
+                });
+
+                calculateAndDisplayRoute(array);
+            });
         });
     });
 });
