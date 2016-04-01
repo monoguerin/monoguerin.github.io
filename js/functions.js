@@ -35,19 +35,20 @@ function calculateAndDisplayRoute(waypoints) {
                 costPerHour = 15,
                 costDistance = 0,
                 costDriver = 0,
-                totalCost = 0;
+                totalCost = 0,
+                panelString= "";
 
             summaryPanel.innerHTML = '';
 
             // For each route, display summary information.
             for (var i = 0; i < route.legs.length; i++) {
                 var routeSegment = i + 1;
-                summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                panelString += '<b>Route Segment: ' + routeSegment +
                     '</b><br>';
-                summaryPanel.innerHTML += '<b>from: </b>'+route.legs[i].start_address + '<br>';
-                summaryPanel.innerHTML += '<b>to: </b>'+route.legs[i].end_address + '<br>';
-                summaryPanel.innerHTML += '<b>distance: </b>' + route.legs[i].distance.text + '<br>';
-                summaryPanel.innerHTML += '<b>duration: </b>' + route.legs[i].duration.text + '<br><br>';
+                panelString+= '<b>from: </b>'+route.legs[i].start_address + '<br>';
+                panelString += '<b>to: </b>'+route.legs[i].end_address + '<br>';
+                panelString += '<b>distance: </b>' + route.legs[i].distance.text + '<br>';
+                panelString += '<b>duration: </b>' + route.legs[i].duration.text + '<br><br>';
                 totalTime += route.legs[i].duration.value + stopTime;
                 totalDistance += route.legs[i].distance.value;
             }
@@ -61,7 +62,8 @@ function calculateAndDisplayRoute(waypoints) {
             summaryPanel.innerHTML += '<b>Cost per Distance: </b>' + costDistance + ' USD<br>';
             summaryPanel.innerHTML += '<b>Cost Driver: </b>' + costDriver + ' USD<br>';
             summaryPanel.innerHTML += '<b>Total Cost: </b>' + totalCost + ' USD<br>';
-            summaryPanel.innerHTML += '<b>Cost per Stop: </b>' + Math.ceil(totalCost/route.legs.length) + ' USD<br><br><br>';
+            summaryPanel.innerHTML += '<b>Cost per Stop: </b>' + (totalCost/route.legs.length) + ' USD<br><br><br>';
+            summaryPanel.innerHTML += panelString;
 
         } else {
             window.alert('Directions request failed due to ' + status);
