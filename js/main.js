@@ -2,27 +2,36 @@
 	"use strict";
 	window.HELP_IMPROVE_VIDEOJS = false;
 	videojs.options.flash.swf = "../bower_components/video.js/dist/video-js.swf";
-	var videos = [{
-		src: 'http://bad-videos.dev.zype.com/good-video1/ArduinoTheDocumentary.mp4',
-		type: 'video/mp4'
-	}, 
-	{
-		src: 'http://bad-videos.dev.zype.com/good-video2/sintel-2048-stereo.mp4',
-		type: 'video/mp4'
-	},
-	{
-		src: 'http://bad-videos.dev.zype.com/good-video3/bipbopall.m3u8',
-		type: "application/x-mpegURL"
-	}];
+	var player = videojs('good-videos'),
+		videoSelector = ".change-video";
 
-	var player = videojs('good-videos');
+	var changeVideo = function(defaultVideo, clickedElement) {
+		var $this,
+			extensions = {
+			"m3u8": "application/x-mpegURL",
+			"mp4": "video/mp4"
+			},
+			baseUrl = "http://bad-videos.dev.zype.com/",
+			videoUrl,
+			type;
+
+		if(defaultVideo) {
+			$this = $(videoSelector + ":first");
+		} else {
+			$this = $(clickedElement);
+		}
+		videoUrl = $this.attr("href");
+		type = extensions[videoUrl.substr(videoUrl.lastIndexOf('.') + 1)] ? extensions[videoUrl.substr(videoUrl.lastIndexOf('.') + 1)] : extensions.mp4;
+		player.src({"type": type, "src": baseUrl + videoUrl});
+		player.play();
+	};
 
 	//Default Video
-	player.src({"type": videos[2].type, "src":videos[2].src});
+	changeVideo(true);
 
-	$(".change-video").click(function() {
-		var $this = $(this);
+	$(videoSelector).click(function(evt) {
+		evt.preventDefault();
+		changeVideo(false, this);
 	});
-
 
 })();
