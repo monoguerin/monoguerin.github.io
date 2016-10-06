@@ -22,7 +22,8 @@
 			type;
 
 		if(defaultVideo) {
-			$this = $(videoSelector + ":first");
+			var tempSelector = videoSelector + ":first";
+			$this = $(tempSelector);
 		} else {
 			$this = $(clickedElement);
 		}
