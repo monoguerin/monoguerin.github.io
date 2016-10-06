@@ -4,7 +4,7 @@
 	//videojs.options.flash.swf = "../bower_components/video.js/dist/video-js.swf";
 	var player = videojs('good-videos',{
 			playbackRates: [1, 1.5, 2, 3], 
-			techOrder: ['html5', 'flash'],
+			techOrder: ['flash', 'html5'],
 			flash: {
 				swf: "../bower_components/video.js/dist/video-js.swf"
 			}
