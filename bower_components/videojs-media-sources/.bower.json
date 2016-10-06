@@ -1,0 +1,16 @@
+{
+  "name": "videojs-media-sources",
+  "_cacheHeaders": {
+    "ETag": "\"b74781111e5e99603239a2b59edf28b1\"",
+    "Last-Modified": "Tue, 25 Feb 2014 17:55:05 GMT",
+    "Content-Length": "4963",
+    "Content-Type": "application/octet-stream",
+    "Content-Disposition": "attachment; filename=videojs-media-sources.js"
+  },
+  "_release": "e-tag:b74781111",
+  "main": "index.js",
+  "_source": "https://github.com/videojs/videojs-contrib-media-sources/releases/download/v0.1.0/videojs-media-sources.js",
+  "_target": "*",
+  "_originalSource": "https://github.com/videojs/videojs-contrib-media-sources/releases/download/v0.1.0/videojs-media-sources.js",
+  "_direct": true
+}
