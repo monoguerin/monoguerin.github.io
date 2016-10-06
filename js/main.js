@@ -1,8 +1,14 @@
 (function (){
 	"use strict";
 	window.HELP_IMPROVE_VIDEOJS = false;
-	videojs.options.flash.swf = "../bower_components/video.js/dist/video-js.swf";
-	var player = videojs('good-videos'),
+	//videojs.options.flash.swf = "../bower_components/video.js/dist/video-js.swf";
+	var player = videojs('good-videos',{
+			playbackRates: [1, 1.5, 2, 3], 
+			techOrder: ['html5', 'flash'],
+			flash: {
+				swf: "../bower_components/video.js/dist/video-js.swf"
+			}
+		}),
 		videoSelector = ".change-video";
 
 	var changeVideo = function(defaultVideo, clickedElement) {
