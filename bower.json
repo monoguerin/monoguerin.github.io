@@ -21,5 +21,8 @@
     "jquery": "~3.1.1",
     "bootstrap": "~3.3.7",
     "videojs-contrib-hls": "https://github.com/videojs/videojs-contrib-hls/releases/download/v3.6.0/videojs-contrib-hls.js"
+  },
+  "resolutions": {
+    "jquery": "1.12.4"
   }
 }
