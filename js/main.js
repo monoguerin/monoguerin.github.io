@@ -15,13 +15,7 @@
 		type: "application/x-mpegURL"
 	}];
 
-	var options = {
-		hls: {
-			withCredentials: false
-		}
-	};
-
-	var player = videojs('good-videos', {flash: options, html5: options});
+	var player = videojs('good-videos');
 
 	//Default Video
 	player.src({"type": videos[2].type, "src":videos[2].src});
