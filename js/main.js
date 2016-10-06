@@ -17,7 +17,7 @@
 
 	var options = {
 		hls: {
-			withCredentials: true
+			withCredentials: false
 		}
 	};
 
