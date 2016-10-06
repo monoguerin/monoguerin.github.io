@@ -1,0 +1,25 @@
+{
+  "name": "deviget-videojs",
+  "authors": [
+    "Cesar Guerrero <mono_guerin@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "video.js": "~5.12.2",
+    "jquery": "~3.1.1",
+    "bootstrap": "~3.3.7",
+    "videojs-contrib-hls": "https://github.com/videojs/videojs-contrib-hls/releases/download/v3.6.0/videojs-contrib-hls.js"
+  }
+}

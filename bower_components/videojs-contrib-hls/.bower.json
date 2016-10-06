@@ -1,0 +1,15 @@
+{
+  "name": "videojs-contrib-hls",
+  "_cacheHeaders": {
+    "ETag": "\"49828c3450414f2d967be5a8bd338c93\"",
+    "Last-Modified": "Tue, 27 Sep 2016 20:11:29 GMT",
+    "Content-Length": "515137",
+    "Content-Type": "application/octet-stream",
+    "Content-Disposition": "attachment; filename=videojs-contrib-hls.js"
+  },
+  "_release": "e-tag:49828c345",
+  "main": "index.js",
+  "_source": "https://github.com/videojs/videojs-contrib-hls/releases/download/v3.6.0/videojs-contrib-hls.js",
+  "_target": "*",
+  "_originalSource": "https://github.com/videojs/videojs-contrib-hls/releases/download/v3.6.0/videojs-contrib-hls.js"
+}
